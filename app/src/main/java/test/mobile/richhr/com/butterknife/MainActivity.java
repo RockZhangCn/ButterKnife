@@ -294,6 +294,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action3:
+                StartMapActivity();
 //                toolbar.setNavigationIcon(R.mipmap.ic_launcher);
                 break;
 
@@ -328,7 +329,13 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-        Toast.makeText(this, "Button is clicked." + id, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Button is clicked." + id, Toast.LENGTH_SHORT).show();
+    }
+
+    private void StartMapActivity()
+    {
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        startActivity(intent);
     }
 
     @Override
