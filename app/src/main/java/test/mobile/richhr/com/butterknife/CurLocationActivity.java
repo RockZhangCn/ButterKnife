@@ -160,7 +160,7 @@ public class CurLocationActivity extends AppCompatActivity implements LocationSo
         //标题
         options.title(buffer.toString());
         //子标题
-        options.snippet("这里好火");
+        //options.snippet("这里好火");
         //设置多少帧刷新一次图片资源
         options.period(60);
 

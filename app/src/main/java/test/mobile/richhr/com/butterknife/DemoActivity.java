@@ -51,6 +51,8 @@ public class DemoActivity extends FragmentActivity implements AMapLocationListen
         if (amap == null)
             amap = mapView.getMap();
         init();
+
+        checkLocationPermission();
     }
 
     private void init() {
