@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab;
 
 
-    @BindView(R.id.action)
+    @BindView(R.id.showcurpos)
     Button action;
 
     @BindView(R.id.show3dmap)
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-    @OnClick({R.id.action, R.id.fab, R.id.show3dmap, R.id.action2, R.id.show2dmap, R.id.action4, R.id.action5, R.id.action6, R.id.action7})
+    @OnClick({R.id.showcurpos, R.id.fab, R.id.show3dmap, R.id.amapdemo, R.id.show2dmap, R.id.action4, R.id.action5, R.id.action6, R.id.action7})
     public void buttonClick(View view)
     {
         int id = view.getId();
@@ -269,14 +269,17 @@ public class MainActivity extends AppCompatActivity
                 rxJavaStudy();
 
                 break;
+            case R.id.showcurpos:
+                startActivity(new Intent(MainActivity.this, CurLocationActivity.class));
+                break;
             case R.id.action0:
 
                 break;
             case R.id.show3dmap:
                 startActivity(new Intent(MainActivity.this, Map3DActivity.class));
                 break;
-            case R.id.action2:
-//                getSupportActionBar().hide();
+            case R.id.amapdemo:
+                startActivity(new Intent(MainActivity.this, DemoActivity.class));
                 break;
 
             case R.id.show2dmap:

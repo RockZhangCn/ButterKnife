@@ -32,8 +32,8 @@
         android:text="text2" />
 
     <Button
-        android:id="@+id/action"
-        android:text="Button"
+        android:id="@+id/showcurpos"
+        android:text="定位当前城市"
         android:layout_below="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -41,14 +41,14 @@
     <Button
         android:id="@+id/show3dmap"
         android:text="3D地图"
-        android:layout_below="@+id/action"
+        android:layout_below="@+id/showcurpos"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/action2"
-        android:text="Button2"
+        android:id="@+id/amapdemo"
+        android:text="AMap Demo"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/show3dmap"
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
         android:id="@+id/show2dmap"
         android:text="2D地图"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/action2"
+        android:layout_below="@+id/amapdemo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

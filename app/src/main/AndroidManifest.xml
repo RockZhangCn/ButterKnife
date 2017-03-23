@@ -1,54 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="test.mobile.richhr.com.butterknife" >
+<manifest package="test.mobile.richhr.com.butterknife"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--允许程序打开网络套接字-->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!--允许程序设置内置sd卡的写权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!--允许程序获取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!--允许程序访问WiFi网络信息-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!--允许程序读写手机状态和身份-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="study"/>
+            android:value="543702f37b9a64d6f3c1c95c1bd08709"/>
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".MapActivity"
-                  android:label="Map"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".MapActivity"
+            android:label="Map"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-    <activity android:name=".SecondActivity"
-              android:label="second"
-              android:theme="@style/AppTheme.NoActionBar" >
+        <activity
+            android:name=".SecondActivity"
+            android:label="second"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".Map3DActivity"
-                  android:label="3DMap"
-                  android:theme="@style/AppTheme.NoActionBar" >
+        <activity
+            android:name=".Map3DActivity"
+            android:label="3DMap"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+            android:name=".CurLocationActivity"
+            android:label="CurLocationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".DemoActivity"
+                  android:label="Demo"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <service android:name="com.amap.api.location.APSService"></service>
     </application>
 
 </manifest>
