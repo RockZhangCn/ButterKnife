@@ -4,31 +4,21 @@ package test.mobile.richhr.com.butterknife;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
-import rx.Observable;
-
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Date;
-
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -54,10 +44,10 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.action)
     Button action;
 
-    @BindView(R.id.action1)
+    @BindView(R.id.show3dmap)
     Button action1;
 
-    @BindView(R.id.action3)
+    @BindView(R.id.show2dmap)
     Button action3;
 
     @BindView(R.id.action4)
@@ -80,7 +70,6 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         textView1.setText("");
     }
 
@@ -90,40 +79,39 @@ public class MainActivity extends AppCompatActivity
         super.overridePendingTransition(enterAnim, exitAnim);
     }
 
-    private static long  BEI_JING_STD_TIME_STAMP = 0;
+    private static long BEI_JING_STD_TIME_STAMP = 0;
+
     public void getBeiJinTime()
     {
-        new AsyncTask<Void, Void, Long>() {
+        new AsyncTask<Void, Void, Long>()
+        {
             @Override
-            protected Long doInBackground(Void... params) {
+            protected Long doInBackground(Void... params)
+            {
                 long ld = 0;
-                try{
-//                    TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
-//                    URL url = new URL("http://www.bjtime.cn");
-//                    URLConnection uc = url.openConnection();
-//                    uc.connect();
-//                    ld = uc.getDate();
-
+                try
+                {
                     SntpClient client = new SntpClient();
 
-                    if(client.requestTime("cn.pool.ntp.org", 50000))
+                    if (client.requestTime("cn.pool.ntp.org", 50000))
                     {
                         ld = client.getNtpTime();
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     return 0L;
                 }
 
-                return ld/1000;
+                return ld / 1000;
             }
 
             @Override
-            protected void onPostExecute(Long result) {
+            protected void onPostExecute(Long result)
+            {
                 BEI_JING_STD_TIME_STAMP = result;
                 Date date = new Date(result * 1000);
-                textView1.setText("times is " + result + " " +  date);
+                textView1.setText("times is " + result + " " + date);
             }
         }.execute();
     }
@@ -136,9 +124,10 @@ public class MainActivity extends AppCompatActivity
             public void call(Subscriber<? super Long> subscriber)
             {
                 long ld = 0;
-                try{
+                try
+                {
                     SntpClient client = new SntpClient();
-                    if(client.requestTime("cn.pool.ntp.org", 5000))
+                    if (client.requestTime("cn.pool.ntp.org", 5000))
                     {
                         ld = client.getNtpTime();
                         subscriber.onNext(ld);
@@ -149,7 +138,7 @@ public class MainActivity extends AppCompatActivity
                     }
 
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     subscriber.onError(new Exception("get time failed exception"));
                 }
@@ -269,11 +258,11 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-    @OnClick({R.id.action, R.id.fab, R.id.action1, R.id.action2, R.id.action3, R.id.action4, R.id.action5, R.id.action6, R.id.action7})
+    @OnClick({R.id.action, R.id.fab, R.id.show3dmap, R.id.action2, R.id.show2dmap, R.id.action4, R.id.action5, R.id.action6, R.id.action7})
     public void buttonClick(View view)
     {
         int id = view.getId();
-        switch(id)
+        switch (id)
         {
             case R.id.fab:
                 //getSupportActionBar().show();
@@ -281,26 +270,23 @@ public class MainActivity extends AppCompatActivity
 
                 break;
             case R.id.action0:
-//                getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-//                getSupportActionBar().setDisplayShowHomeEnabled(true);
-//                getSupportActionBar().setDisplayShowTitleEnabled(true);
+
                 break;
-            case R.id.action1:
-//                getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
-//                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            case R.id.show3dmap:
+                startActivity(new Intent(MainActivity.this, Map3DActivity.class));
                 break;
             case R.id.action2:
 //                getSupportActionBar().hide();
                 break;
 
-            case R.id.action3:
+            case R.id.show2dmap:
                 StartMapActivity();
 //                toolbar.setNavigationIcon(R.mipmap.ic_launcher);
                 break;
 
             case R.id.action4:
                 //getSupportActionBar().setLogo(R.mipmap.ic_launcher);
-                Intent intent2  = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, SecondActivity.class);
 
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
@@ -312,14 +298,14 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action6:
-                Intent intent  = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
 
                 startActivity(intent);
                 overridePendingTransition(R.anim.hold, R.anim.zoom_in_exit);
                 break;
 
             case R.id.action7:
-                Intent intent1  = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, SecondActivity.class);
 
                 startActivity(intent1);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -329,7 +315,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-       // Toast.makeText(this, "Button is clicked." + id, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Button is clicked." + id, Toast.LENGTH_SHORT).show();
     }
 
     private void StartMapActivity()
@@ -339,29 +325,32 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
     }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
 
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 

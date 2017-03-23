@@ -44,6 +44,11 @@
               android:label="second"
               android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+
+        <activity android:name=".Map3DActivity"
+                  android:label="3DMap"
+                  android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
