@@ -1,7 +1,6 @@
 package test.mobile.richhr.com.butterknife;
 
-import android.app.Activity;
-import android.location.Location;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,7 +15,6 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
@@ -66,7 +64,7 @@ public class CurLocationActivity extends AppCompatActivity implements LocationSo
 
 
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(android.R.mipmap.sym_def_app_icon));
+        //myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(android.R.mipmap.sym_def_app_icon));
 
         myLocationStyle.radiusFillColor(android.R.color.transparent);
         myLocationStyle.strokeColor(android.R.color.transparent);
@@ -108,6 +106,13 @@ public class CurLocationActivity extends AppCompatActivity implements LocationSo
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         mMapView.onDestroy();
+
+        if(mapLocationClient != null)
+        {
+            mapLocationClient.onDestroy();
+            mapLocationClient = null;
+            mapLocationClientOption = null;
+        }
     }
 
     @Override
@@ -152,7 +157,7 @@ public class CurLocationActivity extends AppCompatActivity implements LocationSo
         //设置图钉选项
         MarkerOptions options = new MarkerOptions();
         //图标
-        options.icon(BitmapDescriptorFactory.fromResource(android.R.mipmap.sym_def_app_icon));
+        //options.icon(BitmapDescriptorFactory.fromResource(android.R.mipmap.sym_def_app_icon));
         //位置
         options.position(new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude()));
         StringBuffer buffer = new StringBuffer();
@@ -192,7 +197,7 @@ public class CurLocationActivity extends AppCompatActivity implements LocationSo
                 amapLocation.getAdCode();//地区编码
 
                 // 如果不设置标志位，此时再拖动地图时，它会不断将地图移动到当前的位置
-                if (isFirstLoc) {
+                //if (isFirstLoc) {
                     //设置缩放级别
                     aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                     //将地图移动到定位点
@@ -206,7 +211,7 @@ public class CurLocationActivity extends AppCompatActivity implements LocationSo
                     buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getProvince() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
                     Toast.makeText(getApplicationContext(), buffer.toString(), Toast.LENGTH_LONG).show();
                     isFirstLoc = false;
-                }
+              //  }
 
 
             } else {
