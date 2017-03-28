@@ -2,7 +2,6 @@ package test.mobile.richhr.com.butterknife;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.amap.api.maps2d.MapView;
 

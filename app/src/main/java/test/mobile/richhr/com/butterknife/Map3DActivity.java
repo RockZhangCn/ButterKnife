@@ -3,7 +3,6 @@ package test.mobile.richhr.com.butterknife;
 import android.app.Activity;
 import android.os.Bundle;
 
-
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;

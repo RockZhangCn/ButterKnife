@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Date;
 
@@ -28,7 +27,6 @@ import rx.schedulers.Schedulers;
 import test.mobile.richhr.com.butterknife.api.IPAddress;
 import test.mobile.richhr.com.butterknife.api.JsonTest;
 import test.mobile.richhr.com.butterknife.api.RetrofitService;
-import test.mobile.richhr.com.butterknife.api.UpdateBean;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -311,7 +309,8 @@ public class MainActivity extends AppCompatActivity
                                     @Override
                                     public void call(IPAddress ipAddress)
                                     {
-                                        Toast.makeText(MainActivity.this, ipAddress.toString(), Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(MainActivity.this, ipAddress.toString(), Toast.LENGTH_LONG).show();
+                                        textView2.setText(ipAddress.toString());
                                     }
                                 }
                         );
@@ -338,12 +337,13 @@ public class MainActivity extends AppCompatActivity
                                     @Override
                                     public void call(JsonTest updateBean)
                                     {
-                                        Toast.makeText(MainActivity.this, updateBean.toString(), Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(MainActivity.this, updateBean.toString(), Toast.LENGTH_LONG).show();
+                                        textView1.setText(updateBean.toString());
                                     }
                                 }
                         );
 
-                getBeiJinTime();
+                //getBeiJinTime();
                 break;
 
             case R.id.action6:
