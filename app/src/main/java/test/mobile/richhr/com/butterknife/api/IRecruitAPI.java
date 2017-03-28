@@ -20,4 +20,6 @@ public interface IRecruitAPI
 {
     @GET("ymzp/update")
     Observable<UpdateBean> getUpdateResponse(@Query("curversion") String curVersion);
+
+
 }

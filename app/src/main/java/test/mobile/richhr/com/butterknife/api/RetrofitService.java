@@ -27,6 +27,7 @@ import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -55,7 +56,7 @@ public class RetrofitService
 
     private static final String NEWS_HOST = "https://rockzhang.com/";
 
-    private static IRecruitAPI sNewsService;
+    private static IJsonTestAPI sNewsService;
 
     // 递增页码
     private static final int INCREASE_PAGE = 20;
@@ -87,10 +88,10 @@ public class RetrofitService
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(NEWS_HOST)
+                .baseUrl("http://echo.jsontest.com/")
                 .build();
-        sNewsService = retrofit.create(IRecruitAPI.class);
 
+        sNewsService = retrofit.create(IJsonTestAPI.class);
 
     }
 
@@ -161,12 +162,25 @@ public class RetrofitService
      * 获取新闻列表
      * @return
      */
+
+    /*
     public static Observable<UpdateBean>  getUpdateResponse(String curVersion) {
 
         return sNewsService.getUpdateResponse(curVersion);
 
     }
+    */
 
+    public static Observable<JsonTest> getJsonTest()
+    {
+        return  sNewsService.getJsonTest();
+    }
+
+
+    public static  Observable<IPAddress> getIPAddress()
+    {
+        return sNewsService.getIPAddress();
+    }
 
     /******************************************* 转换器 **********************************************/
 

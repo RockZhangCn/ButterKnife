@@ -25,6 +25,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import test.mobile.richhr.com.butterknife.api.IPAddress;
+import test.mobile.richhr.com.butterknife.api.JsonTest;
 import test.mobile.richhr.com.butterknife.api.RetrofitService;
 import test.mobile.richhr.com.butterknife.api.UpdateBean;
 
@@ -75,19 +77,20 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         textView1.setText("");
 
-        RetrofitService.getUpdateResponse("2.1.3")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                new Action1<UpdateBean>()
-                {
-                    @Override
-                    public void call(UpdateBean updateBean)
-                    {
-                        Toast.makeText(MainActivity.this, "Check app version back", Toast.LENGTH_LONG).show();
-                    }
-                }
-        );
+        //RetrofitService.getUpdateResponse("2.1.3")
+//        RetrofitService.getJsonTest()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                new Action1<JsonTest>()
+//                {
+//                    @Override
+//                    public void call(JsonTest updateBean)
+//                    {
+//                        Toast.makeText(MainActivity.this, updateBean.toString(), Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//        );
     }
 
     @Override
@@ -199,7 +202,7 @@ public class MainActivity extends AppCompatActivity
 //                    }
 //                }
 //        );
-        /*
+
         String array[] = {"1", "2", "3", "4", "88"};
         Observable.from(array)
                 .flatMap(new Func1<String, Observable<String>>()
@@ -240,7 +243,7 @@ public class MainActivity extends AppCompatActivity
 //        Observable<String> myObservable = Observable.just("hello1", "hello2", "Hello3");
 //
 //        myObservable.subscribe(onNextAction);
-            */
+
     }
 
     private int numberCnt = 0;
@@ -289,9 +292,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.showcurpos:
                 startActivity(new Intent(MainActivity.this, CurLocationActivity.class));
                 break;
-            case R.id.action0:
 
-                break;
             case R.id.show3dmap:
                 startActivity(new Intent(MainActivity.this, Map3DActivity.class));
                 break;
@@ -300,7 +301,20 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.show2dmap:
-                StartMapActivity();
+                //StartMapActivity();
+                RetrofitService.getIPAddress()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                new Action1<IPAddress>()
+                                {
+                                    @Override
+                                    public void call(IPAddress ipAddress)
+                                    {
+                                        Toast.makeText(MainActivity.this, ipAddress.toString(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                        );
 //                toolbar.setNavigationIcon(R.mipmap.ic_launcher);
                 break;
 
@@ -314,6 +328,21 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action5:
+                //RetrofitService.getUpdateResponse("2.1.3")
+                RetrofitService.getJsonTest()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                new Action1<JsonTest>()
+                                {
+                                    @Override
+                                    public void call(JsonTest updateBean)
+                                    {
+                                        Toast.makeText(MainActivity.this, updateBean.toString(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                        );
+
                 getBeiJinTime();
                 break;
 
