@@ -5,6 +5,7 @@ import android.content.Context;
 
 import java.io.File;
 
+import cn.jpush.android.api.JPushInterface;
 import test.mobile.richhr.com.butterknife.api.RetrofitService;
 
 /**
@@ -28,6 +29,8 @@ public class ButterKnifeApp extends Application
         m_singleInstance = this;
         mAppContext = m_singleInstance;
         RetrofitService.init(mAppContext);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
     }
 
