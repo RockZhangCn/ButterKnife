@@ -7,7 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.HashMap;
 
@@ -42,6 +46,9 @@ public class SecondActivity extends AppCompatActivity
     @BindView(R.id.sec_action2)
     Button button2;
 
+    @BindView(R.id.image)
+    ImageView imageView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -50,6 +57,7 @@ public class SecondActivity extends AppCompatActivity
         setContentView(R.layout.activity_sec);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        middleButtonClick();
     }
 
     @OnClick(R.id.fab)
@@ -59,16 +67,19 @@ public class SecondActivity extends AppCompatActivity
     }
 
     @OnClick(R.id.sec_action0)
-    protected  void topButtonClick()
+    protected void topButtonClick()
     {
         //打开注册页面
         RegisterPage registerPage = new RegisterPage();
-        registerPage.setRegisterCallback(new EventHandler() {
-            public void afterEvent(int event, int result, Object data) {
+        registerPage.setRegisterCallback(new EventHandler()
+        {
+            public void afterEvent(int event, int result, Object data)
+            {
                 // 解析注册结果
-                if (result == SMSSDK.RESULT_COMPLETE) {
+                if (result == SMSSDK.RESULT_COMPLETE)
+                {
                     @SuppressWarnings("unchecked")
-                    HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
+                    HashMap<String, Object> phoneMap = (HashMap<String, Object>) data;
                     String country = (String) phoneMap.get("country");
                     String phone = (String) phoneMap.get("phone");
 
@@ -79,5 +90,15 @@ public class SecondActivity extends AppCompatActivity
         });
 
         registerPage.show(this);
+    }
+
+
+    @OnClick(R.id.sec_action1)
+    protected void middleButtonClick()
+    {
+        Glide.with(this).
+                load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg").diskCacheStrategy(
+                DiskCacheStrategy.ALL).into(imageView);
+
     }
 }

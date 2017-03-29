@@ -197,6 +197,9 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <meta-data android:name="test.mobile.richhr.com.butterknife.utils.GlideConfiguration"
+                   android:value="GlideModule"/>
     </application>
 
 </manifest>
