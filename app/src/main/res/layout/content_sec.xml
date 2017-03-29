@@ -23,7 +23,7 @@
 
     <Button
         android:id="@+id/sec_action0"
-        android:text="Button0"
+        android:text="注册短信"
         android:layout_below="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

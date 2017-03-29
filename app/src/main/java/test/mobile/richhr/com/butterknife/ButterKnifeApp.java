@@ -6,6 +6,7 @@ import android.content.Context;
 import java.io.File;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.smssdk.SMSSDK;
 import test.mobile.richhr.com.butterknife.api.RetrofitService;
 
 /**
@@ -31,6 +32,7 @@ public class ButterKnifeApp extends Application
         RetrofitService.init(mAppContext);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        SMSSDK.initSDK(this, "1c8951fb72a08", "e6cea10fa89cedf5107990e243a7eabb");
 
     }
 
