@@ -6,39 +6,62 @@ package test.mobile.richhr.com.butterknife.api;
 
 public class UpdateBean
 {
-    enum UpdateType
+//    enum UpdateType
+//    {
+//        FORCE,
+//        OPTION,
+//        LATEST
+//    }
+
+    private int updatetype;
+    private String updateversion;
+    private String updateurl;
+
+
+    public UpdateBean(int type, String name,  String url)
     {
-        FORCE,
-        OPTION,
-        LATEST
+        updatetype = type;
+        updateversion = name;
+        updateurl = url;
     }
 
-    private UpdateType updateType;
-    private String updateBinUrl;
-
-    public String getUpdateBinUrl()
+    public int getUpdatetype()
     {
-        return updateBinUrl;
+        return updatetype;
     }
 
-    public void setUpdateBinUrl(String updateBinUrl)
+    public void setUpdatetype(int updatetype)
     {
-        this.updateBinUrl = updateBinUrl;
+        this.updatetype = updatetype;
     }
 
-    public UpdateType getUpdateType()
+    public String getUpdateversion()
     {
-        return updateType;
+        return updateversion;
     }
 
-    public void setUpdateType(UpdateType updateType)
+    public void setUpdateversion(String updateversion)
     {
-        this.updateType = updateType;
+        this.updateversion = updateversion;
     }
 
-    public UpdateBean(UpdateType type, String url)
+    public String getUpdateurl()
     {
-        updateType = type;
-        updateBinUrl = url;
+        return updateurl;
+    }
+
+    public void setUpdateurl(String updateurl)
+    {
+        this.updateurl = updateurl;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "UpdateBean{" +
+                "updatetype=" + updatetype +
+                ", updateversion='" + updateversion + '\'' +
+                ", updateurl='" + updateurl + '\'' +
+                '}';
     }
 }

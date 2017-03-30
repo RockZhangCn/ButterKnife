@@ -2,6 +2,8 @@ package test.mobile.richhr.com.butterknife;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import java.io.File;
 
@@ -34,7 +36,11 @@ public class ButterKnifeApp extends Application
         JPushInterface.init(this);
         SMSSDK.initSDK(this, "1c8951fb72a08", "e6cea10fa89cedf5107990e243a7eabb");
 
+        //checkUpdate();
     }
+
+
+
 
     public Context getApplicationContext()
     {

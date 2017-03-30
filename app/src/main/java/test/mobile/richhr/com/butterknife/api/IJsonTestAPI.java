@@ -1,7 +1,9 @@
 package test.mobile.richhr.com.butterknife.api;
 
 
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 
@@ -16,4 +18,8 @@ public interface IJsonTestAPI
 
     @GET("./")
     Observable<IPAddress> getIPAddress();
+
+
+    @GET("mobile/android/update")
+    Observable <UpdateBean> getUpdateResponse(@Query("name") String versionName, @Query("code") int versionCode);
 }

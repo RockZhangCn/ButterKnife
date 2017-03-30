@@ -49,7 +49,7 @@ public class RetrofitService
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
-    private static final String NEWS_HOST = "https://rockzhang.com/";
+    private static final String NEWS_HOST = "http://rockzhang.com:8080/";
 
     private static IJsonTestAPI sNewsService;
 
@@ -71,7 +71,7 @@ public class RetrofitService
         _context = context;
         Cache cache = new Cache(new File(_context.getCacheDir(), "HttpCache"),
                 1024 * 1024 * 100);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().cache(cache)
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()//.cache(cache)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(sLoggingInterceptor)
                 .addInterceptor(sRewriteCacheControlInterceptor)
@@ -83,7 +83,7 @@ public class RetrofitService
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl("http://ip.jsontest.com/")
+                .baseUrl(NEWS_HOST)
                 .build();
 
         sNewsService = retrofit.create(IJsonTestAPI.class);
@@ -154,17 +154,16 @@ public class RetrofitService
     /************************************ API *******************************************/
 
     /**
-     * 获取新闻列表
      * @return
      */
 
-    /*
-    public static Observable<UpdateBean>  getUpdateResponse(String curVersion) {
 
-        return sNewsService.getUpdateResponse(curVersion);
+    public static Observable<UpdateBean>  getUpdateResponse(String curVersion, int curVerCode) {
+
+        return sNewsService.getUpdateResponse(curVersion, curVerCode);
 
     }
-    */
+
 
     public static Observable<JsonTest> getJsonTest()
     {

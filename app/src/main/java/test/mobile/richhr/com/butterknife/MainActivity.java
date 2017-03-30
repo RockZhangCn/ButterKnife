@@ -2,6 +2,8 @@ package test.mobile.richhr.com.butterknife;
 
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -27,6 +30,7 @@ import rx.schedulers.Schedulers;
 import test.mobile.richhr.com.butterknife.api.IPAddress;
 import test.mobile.richhr.com.butterknife.api.JsonTest;
 import test.mobile.richhr.com.butterknife.api.RetrofitService;
+import test.mobile.richhr.com.butterknife.api.UpdateBean;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -75,20 +79,48 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         textView1.setText("");
 
-        //RetrofitService.getUpdateResponse("2.1.3")
-//        RetrofitService.getJsonTest()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                new Action1<JsonTest>()
-//                {
-//                    @Override
-//                    public void call(JsonTest updateBean)
-//                    {
-//                        Toast.makeText(MainActivity.this, updateBean.toString(), Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//        );
+        checkUpdate();
+
+    }
+
+
+    private void checkUpdate()
+    {
+        int currentVerCode = 0;
+        String currentVerName = "";
+
+
+        try{
+            PackageManager manager = this.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+            currentVerCode = info.versionCode;
+            currentVerName = info.versionName;
+        }catch (PackageManager.NameNotFoundException e)
+        {
+
+        }
+
+        RetrofitService.getUpdateResponse(currentVerName, currentVerCode)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<UpdateBean>()
+                   {
+                       @Override
+                       public void call(UpdateBean updateBean)
+                       {
+                           Toast.makeText(MainActivity.this, updateBean.toString(), Toast.LENGTH_LONG).show();
+                       }
+                   },
+
+                new Action1<Throwable>()
+                {
+                    @Override
+                    public void call(Throwable throwable)
+                    {
+                        Toast.makeText(MainActivity.this, "Load updateInfo error", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 
     @Override
