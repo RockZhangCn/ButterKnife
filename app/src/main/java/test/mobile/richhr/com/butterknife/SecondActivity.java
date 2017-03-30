@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -21,6 +23,14 @@ import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
+import okhttp3.Authenticator;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Credentials;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Route;
 
 /**
  * Created by rock on 17-3-22.
@@ -50,6 +60,8 @@ public class SecondActivity extends AppCompatActivity
     ImageView imageView;
 
 
+    OkHttpClient.Builder okHttpClient;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -58,12 +70,52 @@ public class SecondActivity extends AppCompatActivity
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         middleButtonClick();
+
+        okHttpClient  = new OkHttpClient.Builder();
     }
 
     @OnClick(R.id.fab)
     protected void fabClick()
     {
         startActivity(new Intent(SecondActivity.this, Map3DActivity.class));
+    }
+
+    @OnClick(R.id.sec_action2)
+    protected void okHttpClientButtonClick()
+    {
+        Request request = new Request.Builder()
+                .url("https://rockzhang.com/qb/auth.php")
+                .build();
+
+
+        Authenticator mAuthenticator = new Authenticator() {
+            @Override
+            public Request authenticate(Route route, Response response) throws IOException
+            {
+                Logger.e("authenticate invoked " + response.code());
+                return response.request().newBuilder().header("Authorization", Credentials.basic("rock", "zhang")).build();
+            }
+        };
+
+        okHttpClient.authenticator(mAuthenticator);
+        okHttpClient.build().newCall(request).enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Call call, IOException e)
+            {
+                Logger.e("auth request failed");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException
+            {
+                Logger.e("auth request success " + response.code());
+                if(response.isSuccessful())
+                    Logger.e("We get correct data " + response.body().toString() );
+            }
+        });
+
+
     }
 
     @OnClick(R.id.sec_action0)

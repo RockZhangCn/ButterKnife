@@ -6,8 +6,8 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#ffdddddd"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -30,7 +30,7 @@
 
     <Button
         android:id="@+id/sec_action1"
-        android:text="Button1"
+        android:text="Glide Load"
         android:layout_below="@+id/sec_action0"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
 
     <Button
         android:id="@+id/sec_action2"
-        android:text="Button2"
+        android:text="OkHttpClient"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/sec_action1"
         android:layout_width="match_parent"
