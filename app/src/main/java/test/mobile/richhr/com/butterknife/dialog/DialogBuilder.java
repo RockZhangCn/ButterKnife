@@ -9,60 +9,67 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import test.mobile.richhr.com.butterknife.R;
+
 /**
  * Created by moon.zhong on 2015/2/26.
  */
-public class DialogBuilder extends AlertDialog.Builder {
+public class DialogBuilder extends AlertDialog.Builder
+{
 
-    private Context mContext ;
-    private AlertDialog mAlertDialog ;
-    public DialogBuilder(Context context) {
+    private Context mContext;
+    private AlertDialog mAlertDialog;
+
+    public DialogBuilder(Context context)
+    {
         super(context);
-        mContext = context ;
+        mContext = context;
     }
 
-    public DialogBuilder(Context context, int theme) {
+    public DialogBuilder(Context context, int theme)
+    {
         super(context, theme);
-        mContext = context ;
+        mContext = context;
     }
 
     @NonNull
     @Override
-    public AlertDialog show() {
-        mAlertDialog = super.show() ;
-        mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE) ;
-        final int titleId = mContext.getResources().getIdentifier("alertTitle","id","android") ;
+    public AlertDialog show()
+    {
+        mAlertDialog = super.show();
+        mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        final int titleId = mContext.getResources().getIdentifier("alertTitle", "id", "android");
         TextView titleTxt = (TextView) mAlertDialog.findViewById(titleId);
         titleTxt.setTextColor(0xff45c01a);
 //
-        final int topPanel = mContext.getResources().getIdentifier("topPanel","id","android") ;
+        final int topPanel = mContext.getResources().getIdentifier("topPanel", "id", "android");
         LinearLayout topPanelLayout = (LinearLayout) mAlertDialog.findViewById(topPanel);
         topPanelLayout.setVisibility(View.VISIBLE);
 //
-        final int titleDivider = mContext.getResources().getIdentifier("titleDivider","id","android") ;
-        View titleDividerImg =  mAlertDialog.findViewById(titleDivider);
+        final int titleDivider = mContext.getResources().getIdentifier("titleDivider", "id", "android");
+        View titleDividerImg = mAlertDialog.findViewById(titleDivider);
         titleDividerImg.setVisibility(View.VISIBLE);
         titleDividerImg.setBackgroundColor(0xff45c01a);
 //
 //        final int buttonPanel = mContext.getResources().getIdentifier("buttonPanel","id","android") ;
 //        LinearLayout buttonPanelLayout = (LinearLayout) mAlertDialog.findViewById(buttonPanel);
 //        buttonPanelLayout.setVisibility(View.GONE);
-        final int contentPanel = mContext.getResources().getIdentifier("contentPanel","id","android") ;
+        final int contentPanel = mContext.getResources().getIdentifier("contentPanel", "id", "android");
         LinearLayout contentPanelLayout = (LinearLayout) mAlertDialog.findViewById(contentPanel);
         contentPanelLayout.setVisibility(View.VISIBLE);
 
-        final int message = mContext.getResources().getIdentifier("message","id","android") ;
+        final int message = mContext.getResources().getIdentifier("message", "id", "android");
         TextView messageTextView = (TextView) mAlertDialog.findViewById(message);
-        messageTextView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,20,mContext.getResources().getDisplayMetrics()));
-        messageTextView.setPadding(20,20,20,20);
+        messageTextView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, mContext.getResources().getDisplayMetrics()));
+        messageTextView.setPadding(15, 15, 15, 15);
         messageTextView.setVisibility(View.VISIBLE);
 
-        final int button1 = mContext.getResources().getIdentifier("button1","id","android") ;
+        final int button1 = mContext.getResources().getIdentifier("button1", "id", "android");
         Button negativeButton = (Button) mAlertDialog.findViewById(button1);
         negativeButton.setBackgroundResource(R.drawable.button_selector);
         negativeButton.setVisibility(View.VISIBLE);
         negativeButton.setTextColor(0xff45c01a);
-        final int button2 = mContext.getResources().getIdentifier("button2","id","android") ;
+        final int button2 = mContext.getResources().getIdentifier("button2", "id", "android");
         Button positiveButton = (Button) mAlertDialog.findViewById(button2);
         positiveButton.setBackgroundResource(R.drawable.button_selector);
         positiveButton.setVisibility(View.VISIBLE);

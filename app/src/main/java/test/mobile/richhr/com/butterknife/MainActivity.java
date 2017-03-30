@@ -1,14 +1,19 @@
 package test.mobile.richhr.com.butterknife;
 
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +36,7 @@ import test.mobile.richhr.com.butterknife.api.IPAddress;
 import test.mobile.richhr.com.butterknife.api.JsonTest;
 import test.mobile.richhr.com.butterknife.api.RetrofitService;
 import test.mobile.richhr.com.butterknife.api.UpdateBean;
+import test.mobile.richhr.com.butterknife.dialog.DialogCreate;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -108,6 +114,20 @@ public class MainActivity extends AppCompatActivity
                        @Override
                        public void call(UpdateBean updateBean)
                        {
+                           switch (updateBean.getUpdatetype())
+                           {
+                               case 1: //Force update.
+                                   //DialogCreate.showWeChatTitleDialog(MainActivity.this);
+                                   showUpdateDialog();
+                                   break;
+                               case 2: //Optional update.
+                                   break;
+                               case 3: //Already latest. Do nothing.
+                                   break;
+                               default:
+                                   //donothing
+                                   break;
+                           }
                            Toast.makeText(MainActivity.this, updateBean.toString(), Toast.LENGTH_LONG).show();
                        }
                    },
@@ -121,6 +141,100 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
         );
+    }
+    private NotificationManager mNotifyManager;
+    private NotificationCompat.Builder mBuilder;
+    int id = 1;
+    private void showUpdateDialog()
+    {
+        DialogCreate.showRedTitleDialog(MainActivity.this, "升级提示", "检测到新的版本需要升级", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int whichBtn)
+            {
+                if (whichBtn == DialogInterface.BUTTON_POSITIVE )
+                {
+//                    DownloadUtil.get().download("https://rockzhang.com/download/study.tgz", "Download", new DownloadUtil.OnDownloadListener(){
+//                        @Override
+//                        public void onDownloadSuccess()
+//                        {
+//                            Toast.makeText(MainActivity.this, "Download Success", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onDownloading(int progress)
+//                        {
+//                            Toast.makeText(MainActivity.this, "Downloading " + progress, Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        @Override
+//                        public void onDownloadFailed()
+//                        {
+//                            Toast.makeText(MainActivity.this, "Download failed", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+                    mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    mBuilder = new NotificationCompat.Builder(MainActivity.this);
+                    mBuilder.setContentTitle("Download")
+                            .setContentText("Download in progress")
+                            .setSmallIcon(R.drawable.icon_car);
+
+                    new Downloader().execute();
+                    Toast.makeText(MainActivity.this, "Downloading begin" , Toast.LENGTH_LONG).show();
+                }
+                else if(whichBtn == DialogInterface.BUTTON_NEGATIVE)
+                {
+
+                }
+
+                dialogInterface.dismiss();
+            }
+        });
+    }
+
+    private class Downloader extends AsyncTask<Void, Integer, Integer> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // Displays the progress bar for the first time.
+            mBuilder.setProgress(100, 0, false);
+            mNotifyManager.notify(id, mBuilder.build());
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            // Update progress
+            mBuilder.setProgress(100, values[0], false);
+            mNotifyManager.notify(id, mBuilder.build());
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            int i;
+            for (i = 0; i <= 100; i += 5) {
+                // Sets the progress indicator completion percentage
+                publishProgress(Math.min(i, 100));
+                try {
+                    // Sleep for 5 seconds
+                    Thread.sleep(2 * 1000);
+                } catch (InterruptedException e) {
+                    Log.d("TAG", "sleep failure");
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            mBuilder.setContentText("Download complete");
+            // Removes the progress bar
+            mBuilder.setProgress(0, 0, false);
+            mNotifyManager.notify(id, mBuilder.build());
+        }
     }
 
     @Override
@@ -316,7 +430,8 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.fab:
                 //getSupportActionBar().show();
-                rxJavaStudy();
+                //rxJavaStudy();
+                showUpdateDialog();
 
                 break;
             case R.id.showcurpos:
